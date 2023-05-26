@@ -22,7 +22,7 @@ check_mp4(){
         if [ -f "$file" ]; then
 
         thin_name=$(sed 's/.*\///' <<< "$file")
-        echo -e "${ORANGE}[INFO] ${NC}: Already mp4 file $thin_name."
+        echo -e "${ORANGE}[ INFO ] ${NC}: Already mp4 file $thin_name."
         fi
     done
 }
@@ -44,25 +44,25 @@ if [ -d "$1" ]; then
 
         # Check if the .mp4 file already exists
         if [ -f "$mp4_file" ]; then
-            echo -e "${ORANGE}[INFO] ${NC}: The file $thin_name_mp4 already converted (mkv|mp4). Skipping..."
+            echo -e "${ORANGE}[ INFO ] ${NC}: The file $thin_name_mp4 already converted (mkv|mp4). Skipping..."
         else
-            read -p "$(echo -e "${ORANGE}Do you want to convert $thin_name ? (o/n) :${NC}")" choice
+            read -p "$(echo -e "${ORANGE}Do you want to convert $thin_name ? (o/n) : ${NC}")" choice
             if [[ $choice == "o" ]]; then
             ffmpeg -i "$file" -codec copy "$mp4_file"
 
             # Check if the conversion was successful
             if [ $? -eq 0 ]; then
-                echo -e "${GREEN}[INFO] ${NC}: The file $file has been converted in $mp4_file"
+                echo -e "${GREEN}[ INFO ] ${NC}: The file $file has been converted in $mp4_file"
             else
-                echo -e "${RED}[ERROR] ${NC}: Error when converting... $file"
+                echo -e "${RED}[ ERROR ] ${NC}: Error when converting... $file"
             fi
             else
-            echo -e "${RED}[INFO] ${NC}: Abort the conversion.$fichier"
+            echo -e "${RED}[ INFO ] ${NC}: Abort the conversion.$fichier"
             fi
-
-            read -p "Do you want to convert the next file ? (o/n) : " response
+            
+            read -p "$(echo -e "${ORANGE}Do you want to convert the next file ? (o/n) : ${NC}")" response
             if [[ $response != "o" ]]; then
-            echo -e "${RED}[INFO] ${NC}: Stop the script."
+            echo -e "${RED}[ INFO ] ${NC}: Stop the script."
             check_mp4 "$directory"
             exit 0
             fi
@@ -70,5 +70,5 @@ if [ -d "$1" ]; then
         fi
     done
 else
-  echo -e "${RED}[INFO] ${NC}: The path is not a directory."
+  echo -e "${RED}[ INFO ] ${NC}: The path is not a directory."
 fi
